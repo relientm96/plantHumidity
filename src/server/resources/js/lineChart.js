@@ -16,6 +16,19 @@ function generateData(){
     myChart.update();
 }
 
+//Poll data from backend express server
+function getChartData(){
+    $.ajax({
+        url: "http://localhost:45130/api/data/humidity",
+        success: function (result) {
+            $.each(result, function(index) {
+                humidityData.push(result[index].value);
+            });            
+            myChart.update();
+        }
+    });
+}
+
 var ctx = document.getElementById('myChart').getContext('2d');
 var myChart = new Chart(ctx, {
     type: 'line',
@@ -52,7 +65,7 @@ var myChart = new Chart(ctx, {
         scales: {
             yAxes: [{
                 ticks: {
-                    beginAtZero: true
+                    beginAtZero: true,
                 }
             }]
         },
@@ -63,3 +76,5 @@ var myChart = new Chart(ctx, {
         maintainAspectRatio: false,
     }
 });
+
+
