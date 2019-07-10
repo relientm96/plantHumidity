@@ -59,7 +59,7 @@ var myChart = new Chart(ctx, {
         layout:{
             padding: 10
         },
-        responsive: false,
+        responsive: true,
         maintainAspectRatio: false,
     }
 });
