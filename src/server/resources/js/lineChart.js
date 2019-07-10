@@ -60,6 +60,6 @@ var myChart = new Chart(ctx, {
             padding: 10
         },
         responsive: false,
-        maintainAspectRatio: false
+        maintainAspectRatio: false,
     }
 });
