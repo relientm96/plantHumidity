@@ -11,7 +11,7 @@ Chart.defaults.global.defaultFontSize   =  18;
 function generateData(){
     for (let i = 0; i < 7 ; i++){
         humidityData[i] = Math.floor((Math.random()*5)) + 1;
-        temperatureData[i] = Math.floor((Math.random()*18)) + 5;
+        temperatureData[i] = Math.floor((Math.random()*16)) + 5;
     }
     myChart.update();
 }
@@ -59,5 +59,7 @@ var myChart = new Chart(ctx, {
         layout:{
             padding: 10
         },
+        responsive: false,
+        maintainAspectRatio: false
     }
 });
