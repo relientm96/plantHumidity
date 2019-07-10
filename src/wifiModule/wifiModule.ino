@@ -10,8 +10,8 @@
 #define ESP_BAUD        115200
 #define DELAY_INTERVAL  5000
 
-const char host[] = "http://1c7a2ea6.ngrok.io";   
-char sensorData[] = "{\"sensor\":\"gps\",\"time\":1351824120,\"data\":[48.756080,2.302038]}";
+const char host[] = "http://5394abdf.ngrok.io/api/data";   
+char sensorData[] = "{\"humidity\":{\"time\":\"3141\",\"data\":3.3},\"temperature\":{\"time\":\"313211\",\"data\":23}}";
  
 void setup() {
   Serial.begin(ESP_BAUD);                                  
