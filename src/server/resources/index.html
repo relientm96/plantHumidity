@@ -15,11 +15,20 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     
+    <!--Materialize Imports-->
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- Google Icon Font -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
     <!--Chart JS Imports -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
 
     <!-- Index CSS -->
     <link rel="stylesheet" text="text/css" href="css/index.css" > </link>
+    <script src="js/site.js"></script>
 
     <title>Greenhouse Visualizer</title>
 
@@ -27,21 +36,56 @@
 
   <body>
 
-
-    <div class="container">
-     <div class="card container shadow-lg bg-white rounded">
-        <div class="card-body">
-          <div class="chart-container">
-            <canvas id="myChart"></canvas>
-          </div>
-            <button id="refreshBtn" type="button" class="btn btn-primary" onclick="getChartData()">Refresh</button>
-            <button id="randomBtn" type="button" class="btn btn-primary" onclick="generateData()">Random</button>
-        </div>
-      </div>     
+    <div class="fixed-action-btn">
+      <a id="floatingBtn" class="btn-floating btn-large red">
+        <i class="large material-icons">mode_edit</i>
+      </a>
     </div>
 
-  </body>
+    <div class="container">
+      <div class="section">
+          <div class="jumbotron">
+              <h1>Carolyn's Greenhouse Manager</h1> 
+              <p>
+                My plants be-leaf in me. Do you?
+              </p> 
+          </div>
+      </div>
+    </div>
 
-  <script src="js/lineChart.js"></script>
+    <div class="divider"></div>
+
+    <div class="container">
+      <div class="section">
+        <div class="card">
+          <div class="card-content">
+              <h3> Greenhouse Data</h3>
+              <canvas id="myChart"></canvas>                      
+              <button id="refreshBtn" type="button" class="btn btn-primary waves-effect" onclick="getChartData()">Refresh</button>
+              <button id="randomBtn" type="button" class="btn btn-primary waves-effect" onclick="generateData()">Random</button>
+          </div>
+        </div> 
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="container">
+      <div class="section">
+        <div class="card">
+          <div class="card-content">
+            <h3> Play a Lullaby for them</h3>
+            <button id="songBtn" type="button" class="btn btn-primary">Play Lullaby</button>
+          </div>
+         </div> 
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Own Javascript Imports -->
+    <script src="js/lineChart.js"></script>
+    
+  </body>
 
 </html>

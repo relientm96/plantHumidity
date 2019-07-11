@@ -1,30 +1,47 @@
-//Humidity Chart Script
+//Chat js render methods
 
 var humidityData = [];
 var temperatureData = [];
 
 //Globals
 Chart.defaults.global.defaultFontFamily = 'Roboto';
-Chart.defaults.global.defaultFontSize   =  18;
+//Chart.defaults.global.defaultFontSize   =  18;
 
 //Generate data function
 function generateData(){
+    var humid = [];
+    var temp = [];
     for (let i = 0; i < 7 ; i++){
-        humidityData[i] = Math.floor((Math.random()*5)) + 1;
-        temperatureData[i] = Math.floor((Math.random()*16)) + 5;
+        humid[i] = Math.floor((Math.random()*5)) + 1;
+        temp[i] = Math.floor((Math.random()*16)) + 5;
     }
+    myChart.data.datasets[0].data = humid;   
+    myChart.data.datasets[1].data = temp;   
     myChart.update();
 }
 
 //Poll data from backend express server
 function getChartData(){
+    var humid = [];
+    var temp = [];
     $.ajax({
         url: "http://localhost:45130/api/data/humidity",
         success: function (result) {
             $.each(result, function(index) {
-                humidityData.push(result[index].value);
-            });            
-            myChart.update();
+                humid.push(result[index].value);
+            });        
+            myChart.data.datasets[0].data = humid; 
+            myChart.update();  
+        }
+    });
+    $.ajax({
+        url: "http://localhost:45130/api/data/temperature",
+        success: function (result) {
+            $.each(result, function(index) {
+                temp.push(result[index].value);
+            });        
+            myChart.data.datasets[1].data = temp; 
+            myChart.update();  
         }
     });
 }
@@ -51,11 +68,6 @@ var myChart = new Chart(ctx, {
         }]
     },
     options : {
-        title:{
-            display:true,
-            text: 'Greenhouse Readings',
-            fontSize: 28,
-        },
         legend:{
             position:'top',
             labels:{
@@ -72,8 +84,6 @@ var myChart = new Chart(ctx, {
         layout:{
             padding: 10
         },
-        responsive: true,
-        maintainAspectRatio: false,
     }
 });
 
