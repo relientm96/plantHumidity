@@ -6,6 +6,7 @@
 #include <ESP8266HTTPClient.h>
 
 #include "music.h"
+#include "sonar.h"
 
 //Constants
 #define WIFI_NAME       "Belong3D3DC4"
@@ -13,11 +14,12 @@
 #define DELAY_INTERVAL  5000
 
 void espInit();
-void sendSensorData();
+void sendSensorData(char sensorData[]);
 void serverHandle();
 
 //Server Routing
 void handleRoot();
-void handlePost();
+void handleMario();
+void handlePirates();
 void handleNotFound();
 

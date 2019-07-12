@@ -1,5 +1,9 @@
 //Site specific functions
 
+var ESPURL = "http://10.0.0.6";
+var ESP_MARIO_URL = "http://10.0.0.6/mario"
+var ESP_PIRATES_URL = "http://10.0.0.6/pirates"
+
 //Render random data when page finishes loading
 $( document ).ready(function() {
 
@@ -11,20 +15,46 @@ $( document ).ready(function() {
         alert("Welcome Back Plant Mum Carolyn!\nLet's see what the greenhouse has today!");
     });
 
-    //Make AJAX Request on press
-    $("#songBtn").click(function(){
-        $.post({url: "http://10.0.0.6", success: function(){
+    //Song button requests
+    $("#marioBtn").click(function(){
+        $.post({url: ESP_MARIO_URL, success: function(){
+        }});
+    });
+    $("#piratesBtn").click(function(){
+        $.post({url: ESP_PIRATES_URL, success: function(){
         }});
     });
 
-    setInterval(getSensorData, 1000); //300000 MS == 5 minutes
+    //Continually Poll sensor data in background every second
+    setInterval(getLiveData, 1000); 
 
 });
 
-function getSensorData() {
-    let numb = Math.random()*4+10 ;
-    var element = document.getElementById("sensorTextHolder");
-    element.innerHTML = (parseInt(numb)).toString() + " cm";
+function getLiveData() {
+    let numb2 = Math.random()*2+5;
+    var element_1 = document.getElementById("distanceTextHolder");
+
+    var element_2 = document.getElementById("humidityTextHolder");
+    element_2.innerHTML = (parseInt(numb2)).toString() + " g/m3";
+
+    //Get request to ESP8266 server to get live data
+    const Http = new XMLHttpRequest();
+    Http.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        if( (parseInt(this.responseText, 10) > 60) ){
+            element_1.innerHTML = "I Don't See Anything Around...";
+        }  
+        else if((parseInt(this.responseText, 10) < 5)){
+            element_1.innerHTML = "Someone is too close to me!";
+        }
+        else{
+            element_1.innerHTML = this.responseText + " cm";
+        }
+      }
+    };
+    Http.open("GET", ESPURL, true);
+    Http.send();
+
 }
 
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {

@@ -5,7 +5,11 @@ ESP8266WiFiMulti wifiMulti;
 // Create a webserver object that listens for HTTP request on port 80
 ESP8266WebServer server(80);    
 
-const char host[] = "http://5394abdf.ngrok.io/api/data";
+//URLS to make HTTP requests to
+const char hostDistance[] = "http://5394abdf.ngrok.io/api/data";
+const char hostTemperature[] = "http://5394abdf.ngrok.io/api/data";
+const char hostHumidity[] = "http://5394abdf.ngrok.io/api/data";
+
 char sensorData[] = "{\"humidity\":{\"time\":\"3141\",\"data\":3.3},\"temperature\":{\"time\":\"313211\",\"data\":23}}";
 
 void espInit() {
@@ -36,8 +40,9 @@ void espInit() {
 
   //Callback functions when routing to ESP Server
   server.on("/", HTTP_GET, handleRoot);  
-  server.on("/", HTTP_POST, handlePost);          
-  server.onNotFound(handleNotFound);        
+  server.on("/mario", HTTP_POST, handleMario);  
+  server.on("/pirates", HTTP_POST, handlePirates);                  
+  server.onNotFound(handleNotFound); 
 
   //Start Server
   server.begin();                           
@@ -46,12 +51,12 @@ void espInit() {
 }
 
 //Make a request to the remote server
-void sendSensorData() {
+void sendSensorData(char sensorData[]) {
   if (WiFi.status() == WL_CONNECTED) {
     //Create http object of class HTTPClient
     HTTPClient http;
     //Specify Request Destination
-    http.begin(host);
+    http.begin(hostDistance);
     //Add headers in request
     http.addHeader("Content-Type", "application/json");
 
@@ -79,17 +84,30 @@ void serverHandle(){
 
 //Routes to handle requests to ESP8266 server
 void handleRoot() {
-  server.send(200, "text/plain", "Hello world!");  
+  server.sendHeader("Access-Control-Max-Age", "10000");
+  server.sendHeader("Access-Control-Allow-Methods", "POST,GET,OPTIONS");
+  server.sendHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  server.send(200, "text/plain", String(getDistance()));  
 }
 
-//Handle Button press from external remote client to ESP8266 server
-void handlePost(){
-  
-  playMusic();
-  
+void handleMario(){
+  singMario();
+}
+
+void handlePirates(){
+  singPirates();
 }
 
 void handleNotFound(){
-  server.send(404, "text/plain", "404: Not found");
+   if (server.method() == HTTP_OPTIONS){
+       server.sendHeader("Access-Control-Allow-Origin", "*");
+       server.sendHeader("Access-Control-Max-Age", "10000");
+       server.sendHeader("Access-Control-Allow-Methods", "PUT,POST,GET,OPTIONS");
+       server.sendHeader("Access-Control-Allow-Headers", "*");
+       server.send(204);
+    }
+    else{
+      server.send(404, "text/plain", "404: Not found");
+    }
 }
 

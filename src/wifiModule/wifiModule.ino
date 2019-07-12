@@ -4,6 +4,8 @@
 
 #define THRESHOLD 5
 
+int dist = 0;
+
 void setup() {
   Serial.begin(115200);
   espInit();
@@ -12,15 +14,12 @@ void setup() {
 }
 
 void loop() {
-
-   serverHandle();
-    
-  /*
-  int dist = getDistance();
-  Serial.println(dist);
+  //Run the ESP8266 server
+  serverHandle();
+  //Check for people around  
+  dist = getDistance();
   if(getDistance() <= THRESHOLD){
-      Serial.println("Short Distance!");
-      playMusic();
+      playAlert();
   }
-  */
+  
 }

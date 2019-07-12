@@ -58,7 +58,7 @@
 
     <div id="readingSection" class="container" style="height:100vh;">
       <div class="section">
-        <div class="card">
+        <div class="card hoverable">
           <div class="card-content">
               <h3> Greenhouse Data</h3>
               <canvas id="myChart"></canvas>                      
@@ -71,33 +71,43 @@
 
     <div class="divider"></div>
 
-    <div class="container">
-      <div class="section">
-        <div class="card">
-          <div class="card-content">
-            <h3> Play a Lullaby for them</h3>
-            <button id="songBtn" type="button" class="btn btn-primary">Play Lullaby</button>
-          </div>
-         </div> 
-      </div>
-    </div>
-
     <div class="divider"></div>
 
-    <div class="container">
+    <div id="liveSection" class="container">
       <div class="section">
-        <div class="card">
+        <div class="card hoverable">
           <div class="card-content">
-            <h3> Distance Tracker </h3>
+            <h3> Live Distance Tracker </h3>
             <h5>Nearest Object to Greenhouse is</h5>
-            <h5 id="sensorTextHolder"></h5>
+            <h6 id="distanceTextHolder"></h6>
             <h5>Away</h5>
           </div>
          </div> 
+         <div class="card hoverable">
+            <div class="card-content">
+              <h3> Live Humidity </h3>
+              <h5>Current Humidity is</h5>
+              <h5 id="humidityTextHolder"></h5>
+            </div>
+        </div> 
       </div>
     </div>
 
     <div class="divider"></div>
+
+    <div id="lullabySection" class="container">
+        <div class="section">
+          <div class="card hoverable">
+            <div class="card-content">
+              <h3> Play a Lullaby for them</h3>
+              <div class="btnSongGroup">
+                  <button id="marioBtn" type="button" class="btn btn-primary">Play Mario</button>
+                  <button id="piratesBtn" type="button" class="btn btn-primary">Play Pirates</button>
+              </div>
+            </div>
+           </div> 
+        </div>
+    </div>
 
     <!-- Own Javascript Imports -->
     <script src="js/lineChart.js"></script>
