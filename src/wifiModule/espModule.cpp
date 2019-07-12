@@ -45,7 +45,14 @@ void espInit() {
   //Callback functions when routing to ESP Server
   server.on("/", HTTP_GET, handleRoot);  
   server.on("/mario", HTTP_POST, handleMario);  
-  server.on("/pirates", HTTP_POST, handlePirates);                  
+  server.on("/pirates", HTTP_POST, handlePirates);       
+  server.on("/", HTTP_OPTIONS, []() {
+    server.sendHeader("Access-Control-Max-Age", "10000");
+    server.sendHeader("Access-Control-Allow-Origin","*");
+    server.sendHeader("Access-Control-Allow-Methods", "POST,GET,OPTIONS");
+    server.sendHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    server.send(200, "text/plain", "" );
+  });    
   server.onNotFound(handleNotFound); 
 
   //Start Server
@@ -88,7 +95,7 @@ void serverHandle(){
 
 //Routes to handle requests to ESP8266 server
 void handleRoot() {
-  server.sendHeader("Access-Control-Max-Age", "10000");
+  server.sendHeader("Access-Control-Allow-Origin","*");
   server.sendHeader("Access-Control-Allow-Methods", "POST,GET,OPTIONS");
   server.sendHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   server.send(200, "text/plain", String(getDistance()));  
@@ -103,15 +110,6 @@ void handlePirates(){
 }
 
 void handleNotFound(){
-   if (server.method() == HTTP_OPTIONS){
-       server.sendHeader("Access-Control-Allow-Origin", "*");
-       server.sendHeader("Access-Control-Max-Age", "10000");
-       server.sendHeader("Access-Control-Allow-Methods", "PUT,POST,GET,OPTIONS");
-       server.sendHeader("Access-Control-Allow-Headers", "*");
-       server.send(204);
-    }
-    else{
-      server.send(404, "text/plain", "404: Not found");
-    }
+  server.send(404, "text/plain", "404: Not found");
 }
 
