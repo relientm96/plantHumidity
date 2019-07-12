@@ -24,7 +24,7 @@ void loop() {
   //Check for people around  
   if(dist <= THRESHOLD){
     Serial.println("In loop waiting to confirm");
-    delay(750);
+    delay(10);
     if(getDistance() <= THRESHOLD){
       playAlert();
     }
