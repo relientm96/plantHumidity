@@ -90,7 +90,7 @@ void sendSensorData(char sensorData[]) {
 
 void serverHandle(){
   // Listen for HTTP requests from clients
-  server.handleClient();                    
+  server.handleClient();                  
 }
 
 //Routes to handle requests to ESP8266 server

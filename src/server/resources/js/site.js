@@ -44,7 +44,7 @@ function getLiveData() {
         if( (parseInt(this.responseText, 10) > 60) ){
             element_1.innerHTML = "I Don't See Anything Around...";
         }  
-        else if((parseInt(this.responseText, 10) < 5)){
+        else if((parseInt(this.responseText, 10) <= 6)){
             element_1.innerHTML = "Someone is too close to me!";
         }
         else{
