@@ -38,24 +38,25 @@
 
     <div class="fixed-action-btn">
       <a id="floatingBtn" class="btn-floating btn-large red">
-        <i class="large material-icons">mode_edit</i>
+        <i class="large material-icons">local_florist</i>
       </a>
     </div>
 
-    <div class="container">
-      <div class="section">
-          <div class="jumbotron">
-              <h1>Carolyn's Greenhouse Manager</h1> 
+      <div id="plantBannerID" class="section">
+          <div id="jumbotronID"class="jumbotron">
+              <h1>Carolyn's <br> Greenhouse <br> Manager</h1> 
               <p>
                 My plants be-leaf in me. Do you?
               </p> 
+              <a class="waves-effect waves-light btn-large green darken-1" href="#readingSection">
+                Let's See Them!
+              </a>
           </div>
       </div>
-    </div>
 
     <div class="divider"></div>
 
-    <div class="container">
+    <div id="readingSection" class="container" style="height:100vh;">
       <div class="section">
         <div class="card">
           <div class="card-content">
@@ -76,6 +77,21 @@
           <div class="card-content">
             <h3> Play a Lullaby for them</h3>
             <button id="songBtn" type="button" class="btn btn-primary">Play Lullaby</button>
+          </div>
+         </div> 
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="container">
+      <div class="section">
+        <div class="card">
+          <div class="card-content">
+            <h3> Distance Tracker </h3>
+            <h5>Nearest Object to Greenhouse is</h5>
+            <h5 id="sensorTextHolder"></h5>
+            <h5>Away</h5>
           </div>
          </div> 
       </div>

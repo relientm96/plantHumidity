@@ -4,6 +4,7 @@
 const express = require('express');
 const bodyParser = require("body-parser");
 const path = require("path");
+const cors = require("cors");
 
 //App variables
 const app = express();
@@ -15,6 +16,7 @@ const   humidSensorDB = nano.db.use("humidity")
 const   tempSensorDB  = nano.db.use("temperature")
 
 //Middlewares - processes incoming requests before handling to routes 
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, '/resources')));

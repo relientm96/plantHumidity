@@ -1,3 +1,7 @@
+html{
+    scroll-behavior: smooth;
+}
+
 body {
     background-color: #fefefe;
     text-align: center;
@@ -5,4 +9,14 @@ body {
 
 #refreshBtn , #randomBtn {
     display:inline-block;
+}
+
+#jumbotronID{
+    background-image: url(../images/plantBanner.jpg); 
+    background-size: cover;
+    height:100vh; 
+}
+
+#plantBannerID{
+    color:white;
 }
