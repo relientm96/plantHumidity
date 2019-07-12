@@ -4,23 +4,23 @@
 
 #define THRESHOLD 5
 
-void makePulse(){
-  
-}
-
 void setup() {
   Serial.begin(115200);
-  //espInit();
+  espInit();
   initMusic();
   sonarInit();
 }
 
-// the loop function runs over and over again forever
 void loop() {
+
+   serverHandle();
+    
+  /*
   int dist = getDistance();
   Serial.println(dist);
   if(getDistance() <= THRESHOLD){
       Serial.println("Short Distance!");
       playMusic();
   }
+  */
 }
