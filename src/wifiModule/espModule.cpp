@@ -13,6 +13,10 @@ const char hostHumidity[] = "http://5394abdf.ngrok.io/api/data";
 char sensorData[] = "{\"humidity\":{\"time\":\"3141\",\"data\":3.3},\"temperature\":{\"time\":\"313211\",\"data\":23}}";
 
 void espInit() {
+
+  Serial.print("\n");
+  Serial.print("MAC: ");
+  Serial.println(WiFi.macAddress());
   
   //Client Initializations
   Serial.println("Trying to connect to WiFi for HTTP Client");

@@ -1,8 +1,8 @@
 //Site specific functions
 
-var ESPURL = "http://10.0.0.6";
-var ESP_MARIO_URL = "http://10.0.0.6/mario"
-var ESP_PIRATES_URL = "http://10.0.0.6/pirates"
+var ESPURL = "http://147.10.68.24:9140/";
+var ESP_MARIO_URL = "http://147.10.68.24:9140/mario"
+var ESP_PIRATES_URL = "http://147.10.68.24:9140/pirates"
 
 //Render random data when page finishes loading
 $( document ).ready(function() {
