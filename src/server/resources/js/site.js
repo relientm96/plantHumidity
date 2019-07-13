@@ -27,6 +27,7 @@ $( document ).ready(function() {
 
     //Continually Poll sensor data in background every second
     setInterval(getLiveData, 1000); 
+    setInterval(getDistanceData, 1000);
 
 });
 

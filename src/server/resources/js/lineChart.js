@@ -5,7 +5,6 @@ var temperatureData = [];
 
 //Globals
 Chart.defaults.global.defaultFontFamily = 'Roboto';
-//Chart.defaults.global.defaultFontSize   =  18;
 
 //Generate data function
 function generateData(){
@@ -57,14 +56,14 @@ var myChart = new Chart(ctx, {
             backgroundColor: 'rgba(107, 185, 240, 1)',
             fill: false,
             borderColor: 'rgba(107, 185, 240, 1)',
-            borderWidth: 1,
+            borderWidth: 2.5,
         },{
             label: 'Temperature ',
             data: temperatureData,
             backgroundColor: 'rgba(214, 69, 65, 1)',
             fill: false,
             borderColor: 'rgba(214, 69, 65, 1)',
-            borderWidth: 1,
+            borderWidth: 2.5,
         }]
     },
     options : {

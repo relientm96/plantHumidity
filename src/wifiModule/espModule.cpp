@@ -102,10 +102,12 @@ void handleRoot() {
 }
 
 void handleMario(){
+  server.send(202, "text/plain", "Playing Mario...");
   singMario();
 }
 
 void handlePirates(){
+  server.send(202, "text/plain", "Playing Pirates...");
   singPirates();
 }
 
