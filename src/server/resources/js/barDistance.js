@@ -11,10 +11,15 @@ Chart.defaults.global.defaultFontFamily = 'Roboto';
 //Generate data function
 function getDistanceData(){
     $.get( ESPURL, function( result ) {
-        console.log("Data for bar: " + result);
-        myBarChart.data.datasets[0].data[0] = result;   
-        myBarChart.data.datasets[0].data[1] = Math.floor(Math.random()*20+5);   
-        myBarChart.update();
+        if(parseInt(result,10) < 200){
+            myBarChart.data.datasets[0].data[0] = result;   
+            myBarChart.data.datasets[0].data[1] = Math.floor(Math.random()*20+5);   
+            myBarChart.update();            
+        }
+        else{
+            myBarChart.data.datasets[0].data[1] = Math.floor(Math.random()*20+5);   
+            myBarChart.update();            
+        }
     });
 }
 
@@ -24,26 +29,26 @@ var myBarChart = new Chart(ctx, {
     data: {
         labels: ['Distance (cm)', 'Humidity'],
         datasets: [{
-            label: ['Distance (cm)', 'Humidity'],
+            label: ['Distance (cm)','Humidity'],
             data: [distanceLive, humdidLive],
-            backgroundColor: ['rgba(107, 185, 240, 1)', 'rgba(214, 69, 65, 1)'],
-            borderColor: ['rgba(107, 185, 240, 1)','rgba(214, 69, 65, 1)'],
+            backgroundColor: ['rgba(35, 203, 167, 1)', 'rgba(246, 71, 71, 1)'],
+            borderColor: ['rgba(236, 100, 75, 1)','rgba(214, 69, 65, 1)'],
         },]
     },
     options:{
+        title: {
+            display: true,
+            text: 'Track Live Data from Sensors!'
+        },
         legend:{
-            position:'top',
-            labels:{
-                fontColor:'#000'
-            }
+            display: false
         },
         scales: {
             xAxes: [{
                 ticks: {
                     beginAtZero: true,
                     suggestedMin: 0,
-                    suggestedMax: 30,
-                    stepSize: 2,
+                    suggestedMax: 40,
                 }
             }],
         },

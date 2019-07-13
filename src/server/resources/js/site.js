@@ -17,16 +17,32 @@ $( document ).ready(function() {
 
     //Song button requests
     $("#marioBtn").click(function(){
-        $.post({url: ESP_MARIO_URL, success: function(){
-        }});
-    });
-    $("#piratesBtn").click(function(){
-        $.post({url: ESP_PIRATES_URL, success: function(){
-        }});
+        $.ajax({
+            url: ESP_MARIO_URL,
+            type: 'POST',
+            success: function (result) {
+                document.getElementById("playSongTextHolder").innerHTML = result;
+            },
+            error: function (){
+                document.getElementById("playSongTextHolder").innerHTML = "I don't think the sensor is on...";
+            }
+        });
     });
 
-    //Continually Poll sensor data in background every second
-    setInterval(getLiveData, 1000); 
+    $("#piratesBtn").click(function(){
+        $.ajax({
+            url: ESP_PIRATES_URL,
+            type: 'POST',
+            success: function (result) {
+                document.getElementById("playSongTextHolder").innerHTML = result;
+            },
+            error: function (){
+                document.getElementById("playSongTextHolder").innerHTML = "I don't think the sensor is on...";
+            }
+        });
+    });
+
+    setInterval(getLiveData,     1000); 
     setInterval(getDistanceData, 1000);
 
 });
@@ -38,15 +54,21 @@ function getLiveData() {
     var element_2 = document.getElementById("humidityTextHolder");
     element_2.innerHTML = (parseInt(numb2)).toString() + " g/m3";
 
-    $.get( ESPURL, function( data ) {
-        if( (parseInt(data, 10) > 80) ){
-            element_1.innerHTML = "I Don't See Anything Around...";
-        }  
-        else if((parseInt(data, 10) <= 7)){
-            element_1.innerHTML = "Someone is too close to me!";
-        }
-        else{
-            element_1.innerHTML = data + " cm";
+    $.ajax({
+        url: ESPURL,
+        success: function (result) {
+            if( (parseInt(result, 10) > 80) ){
+                element_1.innerHTML = "I Don't See Anything Around...";
+            }  
+            else if((parseInt(result, 10) <= 7)){
+                element_1.innerHTML = "Someone is too close to me!";
+            }
+            else{
+                element_1.innerHTML = result + " cm";
+            }
+        },
+        error: function (){
+            element_1.innerHTML = "Cannot connect to sensor...";
         }
     });
 }

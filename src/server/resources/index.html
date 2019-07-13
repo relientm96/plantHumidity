@@ -48,7 +48,7 @@
               <p>
                 My plants be-leaf in me. Do you?
               </p> 
-              <a class="waves-effect waves-light btn-large green darken-1" href="#readingSection">
+              <a class="waves-effect waves-light btn-large green darken-1" href="#liveDataSection">
                 Let's See Them!
               </a>
           </div>
@@ -56,22 +56,7 @@
 
     <div class="divider"></div>
 
-    <div id="readingSection" class="container" style="height:100vh;">
-      <div class="section">
-        <div class="card hoverable">
-          <div class="card-content">
-              <h3> Greenhouse Data</h3>
-              <canvas id="myChart" style="max-height: 350px;"></canvas>                      
-              <button id="refreshBtn" type="button" class="btn btn-primary waves-effect" onclick="getChartData()">Refresh</button>
-              <button id="randomBtn" type="button" class="btn btn-primary waves-effect" onclick="generateData()">Random</button>
-          </div>
-        </div> 
-      </div>
-    </div>
-
-    <div class="divider"></div>
-
-    <div class="container">
+    <div id="liveDataSection" class="container">
       <div class="section">
         <div class="card hoverable">
           <div class="card-content">
@@ -79,8 +64,23 @@
             <canvas id="distanceBar" style="max-height: 350px;"></canvas>
           </div>
           </div>      
+      </div>
+    </div>
+
+    <div id="readingSection" class="container" style="height:100vh;">
+        <div class="section">
+          <div class="card hoverable">
+            <div class="card-content">
+                <h3> Greenhouse Data</h3>
+                <canvas id="myChart" style="max-height: 350px;"></canvas>                      
+                <button id="refreshBtn" type="button" class="btn btn-primary waves-effect" onclick="getChartData()">Refresh</button>
+                <button id="randomBtn" type="button" class="btn btn-primary waves-effect" onclick="generateData()">Random</button>
+            </div>
+          </div> 
         </div>
     </div>
+  
+    <div class="divider"></div>
 
     <div id="liveSection" class="container">
       <div class="section">
@@ -109,6 +109,7 @@
           <div class="card hoverable">
             <div class="card-content">
               <h3> Play a Lullaby for them</h3>
+              <p id="playSongTextHolder"></p>
               <div class="btnSongGroup">
                   <button id="marioBtn" type="button" class="btn btn-primary">Play Mario</button>
                   <button id="piratesBtn" type="button" class="btn btn-primary">Play Pirates</button>

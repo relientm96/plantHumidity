@@ -11,7 +11,7 @@ function generateData(){
     var humid = [];
     var temp = [];
     for (let i = 0; i < 7 ; i++){
-        humid[i] = Math.floor((Math.random()*5)) + 1;
+        humid[i] = Math.floor((Math.random()*6)) + 1;
         temp[i] = Math.floor((Math.random()*16)) + 5;
     }
     myChart.data.datasets[0].data = humid;   
