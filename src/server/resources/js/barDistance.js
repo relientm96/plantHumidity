@@ -55,7 +55,6 @@ var myBarChart = new Chart(ctx, {
         scales: {
             xAxes: [{
                 ticks: {
-                    display: false,
                     beginAtZero: true,
                     max: 150,
                     min: 0,
