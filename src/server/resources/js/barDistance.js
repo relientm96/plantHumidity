@@ -47,8 +47,8 @@ var myBarChart = new Chart(ctx, {
             xAxes: [{
                 ticks: {
                     beginAtZero: true,
-                    suggestedMin: 0,
-                    suggestedMax: 40,
+                    max: 150,
+                    min: 0,
                 }
             }],
         },
