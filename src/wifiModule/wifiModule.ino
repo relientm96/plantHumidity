@@ -2,7 +2,8 @@
 #include "music.h"
 #include "sonar.h"
 
-#define THRESHOLD 5
+#define THRESHOLD         5
+#define COUNT_THRESHOLD   2
 
 int dist = 0;
 
@@ -14,12 +15,19 @@ void setup() {
 }
 
 void loop() {
+  dist = getDistance();
+  Serial.println(dist);
+  
   //Run the ESP8266 server
   serverHandle();
-  //Check for people around  
-  dist = getDistance();
-  if(getDistance() <= THRESHOLD){
-      playAlert();
-  }
   
+  //Check for people around  
+  if(dist <= THRESHOLD){
+    Serial.println("In loop waiting to confirm");
+    delay(10);
+    if(getDistance() <= THRESHOLD){
+      playAlert();
+    }
+  } 
+
 }
