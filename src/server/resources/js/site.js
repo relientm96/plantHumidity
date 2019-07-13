@@ -43,7 +43,7 @@ $( document ).ready(function() {
     });
 
     setInterval(getLiveData,     1000); 
-    setInterval(getDistanceData, 600);
+    setInterval(getDistanceData, 1000);
 
 });
 
