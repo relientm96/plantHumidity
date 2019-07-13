@@ -10,15 +10,24 @@ Chart.defaults.global.defaultFontFamily = 'Roboto';
 
 //Generate data function
 function getDistanceData(){
-    $.get( ESPURL, function( result ) {
-        if(parseInt(result,10) < 200){
-            myBarChart.data.datasets[0].data[0] = result;   
-            myBarChart.data.datasets[0].data[1] = Math.floor(Math.random()*20+5);   
-            myBarChart.update();            
-        }
-        else{
-            myBarChart.data.datasets[0].data[1] = Math.floor(Math.random()*20+5);   
-            myBarChart.update();            
+
+    $.ajax({
+        url: ESPURL,
+        type: 'GET',
+        success: function (result) {
+            if(parseInt(result,10) < 200){
+                myBarChart.data.datasets[0].data[0] = result;   
+                myBarChart.data.datasets[0].data[1] = Math.floor(Math.random()*20+5);   
+                myBarChart.update();            
+            }
+            else{
+                myBarChart.data.datasets[0].data[1] = Math.floor(Math.random()*20+5);   
+                myBarChart.update();            
+            }
+            document.getElementById("isSensorOn").innerHTML = "Data Coming in to you LIVE!";
+        },
+        error: function (){
+            document.getElementById("isSensorOn").innerHTML = "Hmm, I don't think the sensor is on";
         }
     });
 }

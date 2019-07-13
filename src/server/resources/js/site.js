@@ -43,12 +43,12 @@ $( document ).ready(function() {
     });
 
     setInterval(getLiveData,     1000); 
-    setInterval(getDistanceData, 1000);
+    setInterval(getDistanceData, 600);
 
 });
 
 function getLiveData() {
-    let numb2 = Math.random()*2+5;
+    let numb2 = Math.floor((Math.random()*6)) + 1;
     var element_1 = document.getElementById("distanceTextHolder");
 
     var element_2 = document.getElementById("humidityTextHolder");
