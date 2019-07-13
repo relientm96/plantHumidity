@@ -84,6 +84,7 @@ var myChart = new Chart(ctx, {
         layout:{
             padding: 10
         },
+        maintainAspectRatio: false,
     }
 });
 

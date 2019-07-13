@@ -37,24 +37,17 @@ function getLiveData() {
     var element_2 = document.getElementById("humidityTextHolder");
     element_2.innerHTML = (parseInt(numb2)).toString() + " g/m3";
 
-    //Get request to ESP8266 server to get live data
-    const Http = new XMLHttpRequest();
-    Http.onreadystatechange = function () {
-      if (this.readyState == 4 && this.status == 200) {
-        if( (parseInt(this.responseText, 10) > 60) ){
+    $.get( ESPURL, function( data ) {
+        if( (parseInt(data, 10) > 80) ){
             element_1.innerHTML = "I Don't See Anything Around...";
         }  
-        else if((parseInt(this.responseText, 10) <= 6)){
+        else if((parseInt(data, 10) <= 7)){
             element_1.innerHTML = "Someone is too close to me!";
         }
         else{
-            element_1.innerHTML = this.responseText + " cm";
+            element_1.innerHTML = data + " cm";
         }
-      }
-    };
-    Http.open("GET", ESPURL, true);
-    Http.send();
-
+    });
 }
 
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
