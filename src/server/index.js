@@ -8,6 +8,7 @@ const bodyParser = require("body-parser");
 const path = require("path");
 const cors = require("cors");
 const request = require('request');
+const morgan = require('morgan');
 
 /**
  * App Variables
@@ -30,12 +31,20 @@ const ESP_MARIO_URL    = "http://147.10.68.24:9140/mario";
 const ESP_PIRATES_URL  = "http://147.10.68.24:9140/pirates";
 
 /**
+ * OpenWeatherMap API Variables
+ */
+const APIKEY           = "d5fc87e05478be7b30ebf1e7105713e1";
+const MELBOURNE_ID     = "7839805";
+const WEATHER_URL      = "http://api.openweathermap.org/data/2.5/weather?id="+MELBOURNE_ID+"&APPID="+APIKEY;
+
+/**
  * App middlewares
  */
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, '/resources')));
+app.use(morgan('combined'));
 
 /**
  * App route functions called from frontend
@@ -99,20 +108,22 @@ app.get('/api/data/temperature',(request,response) => {
  * FrontEnd call that re-routes request to sensor to play Mario
  */
 app.post('/remote/mario',(req,res) =>{
+
     //Make request to remote sensor
     request({
         url: ESP_MARIO_URL,
         method: 'POST',
-    }, function (error, response, getData) {
+    }, function(error, response, body){
         if (!error) {
-            console.log(response.body);
+            res.contentType("text/plain");
+            res.send(response.body);
         }
         else{
-            console.log("[Error at [app.post('/remote/mario')]:" + error);
+
+            res.send(500);
         }
     });
-    res.contentType("text/plain");
-    res.send("Playing Mario!");
+
 });
 
 /**
@@ -123,21 +134,32 @@ app.post('/remote/pirates',(req,res) =>{
     request({
         url: ESP_PIRATES_URL,
         method: 'POST',
-    }, function (error, response, getData) {
+    }, function (error, response, body) {
         if (!error) {
-            console.log(response.body);
+            res.send("text/plain");
+            res.send(response.body);
         }
         else{
-            console.log("[Error at [app.post('/remote/pirates')]:" + error);
+            res.send(500);
         }
     });
-    res.contentType("text/plain");
-    res.send("Playing Pirates!");
 });
 
 //Poll Weather data from openweatherapi
-app.get("/api/data/getweatherdata",(request,response) => {
-
+app.get("/api/data/getweatherdata",(req,res) => {
+    //Make request to remote sensor
+    request({
+        url: WEATHER_URL,
+        method: 'GET',
+    }, function (error, response, body) {
+        if (!error) {
+            res.contentType("application/json");
+            res.send(response.body);
+        }
+        else{
+            res.send(500);
+        }
+    });
 });
 
 app.listen(PORT, () => console.log(`Server Started on port ${PORT} `));
