@@ -114,13 +114,13 @@ app.post('/remote/mario',(req,res) =>{
         url: ESP_MARIO_URL,
         method: 'POST',
     }, function(error, response, body){
-        if (!error) {
+        if (error) {
+            res.contentType("text/plain");
+            res.send("Could not play mario...");
+        }
+        else {
             res.contentType("text/plain");
             res.send(response.body);
-        }
-        else{
-
-            res.send(500);
         }
     });
 
@@ -135,12 +135,13 @@ app.post('/remote/pirates',(req,res) =>{
         url: ESP_PIRATES_URL,
         method: 'POST',
     }, function (error, response, body) {
-        if (!error) {
-            res.send("text/plain");
-            res.send(response.body);
+        if (error) {
+            res.contentType("text/plain");
+            res.send("Could not play pirates...");
         }
         else{
-            res.send(500);
+            res.contentType("text/plain");
+            res.send(response.body);
         }
     });
 });
@@ -151,13 +152,15 @@ app.get("/api/data/getweatherdata",(req,res) => {
     request({
         url: WEATHER_URL,
         method: 'GET',
+        json: true,
     }, function (error, response, body) {
-        if (!error) {
+        if (error) {
             res.contentType("application/json");
             res.send(response.body);
         }
         else{
-            res.send(500);
+            res.contentType("application/json");
+            res.send(body.main);
         }
     });
 });
