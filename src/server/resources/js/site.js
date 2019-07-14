@@ -18,7 +18,7 @@ $( document ).ready(function() {
 
     $("#marioBtn").click(function(){
         $.ajax({
-            url: "http://18.139.115.251:45130/remote/mario",
+            url: "http://18.139.115.251/remote/mario",
             type: 'POST',
             success: function (result) {
                 document.getElementById("playSongTextHolder").innerHTML = result;
@@ -31,7 +31,7 @@ $( document ).ready(function() {
 
     $("#piratesBtn").click(function(){
         $.ajax({
-            url: "http://18.139.115.251:45130/remote/pirates",
+            url: "http://18.139.115.251/remote/pirates",
             type: 'POST',
             success: function (result) {
                 document.getElementById("playSongTextHolder").innerHTML = result;
