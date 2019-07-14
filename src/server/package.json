@@ -23,7 +23,8 @@
     "chart.js": "^2.8.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "nano": "^8.1.0"
+    "nano": "^8.1.0",
+    "request": "^2.88.0"
   },
   "devDependencies": {
     "nodemon": "^1.19.1"

@@ -11,14 +11,14 @@ $( document ).ready(function() {
     $('.fixed-action-btn').floatingActionButton({
         hoverEnabled: false,
     });
+
     $( "#floatingBtn" ).click(function(){
         alert("Welcome Back Plant Mum Carolyn!\nLet's see what the greenhouse has today!");
     });
 
-    //Song button requests
     $("#marioBtn").click(function(){
         $.ajax({
-            url: ESP_MARIO_URL,
+            url: "http://18.139.115.251:45130/remote/mario",
             type: 'POST',
             success: function (result) {
                 document.getElementById("playSongTextHolder").innerHTML = result;
@@ -31,7 +31,7 @@ $( document ).ready(function() {
 
     $("#piratesBtn").click(function(){
         $.ajax({
-            url: ESP_PIRATES_URL,
+            url: "http://18.139.115.251:45130/remote/pirates",
             type: 'POST',
             success: function (result) {
                 document.getElementById("playSongTextHolder").innerHTML = result;
