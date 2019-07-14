@@ -84,10 +84,6 @@ app.post('/api/data',function(request,response){
 app.get('/api/data/humidity',(request,response) => {
     humidSensorDB.view("humidView","sortTime")
     .then((body) => {
-        response.setHeader("Access-Control-Max-Age", "10000");
-        response.setHeader("Access-Control-Allow-Origin","*");
-        response.setHeader("Access-Control-Allow-Methods", "POST,GET,OPTIONS");
-        response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         response.send(body.rows);
     })
     .catch((error) => {
@@ -101,10 +97,6 @@ app.get('/api/data/humidity',(request,response) => {
 app.get('/api/data/temperature',(request,response) => {
     tempSensorDB.view("tempView","sortTime")
     .then((body) => {
-        response.setHeader("Access-Control-Max-Age", "10000");
-        response.setHeader("Access-Control-Allow-Origin","*");
-        response.setHeader("Access-Control-Allow-Methods", "POST,GET,OPTIONS");
-        response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         response.send(body.rows);
     })
     .catch((error) => {
