@@ -24,7 +24,7 @@ function getChartData(){
     var humid = [];
     var temp = [];
     $.ajax({
-        url: "http://18.139.115.251/api/data/humidity",
+        url: "http://localhost:5984/api/data/humidity",
         success: function (result) {
             $.each(result, function(index) {
                 humid.push(result[index].value);
@@ -34,7 +34,7 @@ function getChartData(){
         }
     });
     $.ajax({
-        url: "http://18.139.115.251/api/data/temperature",
+        url: "http://localhost:5984/api/data/temperature",
         success: function (result) {
             $.each(result, function(index) {
                 temp.push(result[index].value);
