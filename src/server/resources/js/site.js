@@ -45,11 +45,12 @@ $( document ).ready(function() {
 
     setInterval(getLiveData,     1000); 
     setInterval(getDistanceData, 1000);
+    setInterval(pollMoisture,    250);
 
 });
 
 function getLiveData() {
-    
+
     var element_1 = document.getElementById("distanceTextHolder");
     var element_2 = document.getElementById("humidityTextHolder");
 

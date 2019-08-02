@@ -83,6 +83,20 @@
   
     <div class="divider"></div>
 
+    <div id="trackMoistureSection" class="container" style="height:100vh;">
+      <div class="section">
+        <div class="card hoverable">
+          <div class="card-content">
+              <h3> Live Moisture Data </h3>
+              <p id="moistureStatus"></p>
+              <canvas id="moistureChart" style="max-height: 350px;"></canvas>                      
+          </div>
+        </div> 
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
     <div id="liveSection" class="container">
       <div class="section">
         <div class="card hoverable">
@@ -121,6 +135,7 @@
     </div>
 
     <!-- Own Javascript Imports -->
+    <script src="js/livePlot.js"></script>
     <script src="js/lineChart.js"></script>
     <script src="js/barDistance.js"></script>
   </body>

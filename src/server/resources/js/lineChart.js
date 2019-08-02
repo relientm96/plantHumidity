@@ -1,21 +1,22 @@
 //Chat js render methods
 
-var humidityData = [];
-var temperatureData = [];
+var humidityData;
+var temperatureData;
 
 //Globals
 Chart.defaults.global.defaultFontFamily = 'Roboto';
 
 //Generate data function
 function generateData(){
-    var humid = [];
-    var temp = [];
-    for (let i = 0; i < 7 ; i++){
-        humid[i] = Math.floor((Math.random()*6)) + 1;
-        temp[i] = Math.floor((Math.random()*16)) + 5;
-    }
-    myChart.data.datasets[0].data = humid;   
-    myChart.data.datasets[1].data = temp;   
+    newHumid = (Math.floor((Math.random()*6)) + 1);
+    newTemp = (Math.floor((Math.random()*16)) + 5);
+
+    var currentDate = new Date();
+    var timeNow = currentDate.getHours().toString() + ':' + currentDate.getMinutes().toString() + ':'+ currentDate.getSeconds().toString()
+    myChart.data.datasets[0].data.push(newHumid);         
+    myChart.data.datasets[1].data.push(newTemp);   
+    myChart.data.labels.push(timeNow); 
+
     myChart.update();
 }
 
@@ -49,7 +50,6 @@ var ctx = document.getElementById('myChart').getContext('2d');
 var myChart = new Chart(ctx, {
     type: 'line',
     data: {
-        labels: ['8:00 a.m.', '10:00 a.m.' , '12:00 p.m.', '2:00 p.m.', '4:00 p.m.', '6:00 p.m.', '8:00 p.m.'],
         datasets: [{
             label: 'Humidity',
             data: humidityData,
