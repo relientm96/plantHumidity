@@ -26,16 +26,17 @@ const   tempSensorDB  = nano.db.use("temperature")
 /**
  * Sensor URL Endpoints
  */
-const ESPURL           = "http://147.10.68.24:9140/";
-const ESP_MARIO_URL    = "http://147.10.68.24:9140/mario";
-const ESP_PIRATES_URL  = "http://147.10.68.24:9140/pirates";
+const ESPURL           = "http://10.0.0.6/";           //http://147.10.68.24:9140
+const ESP_MARIO_URL    = "http://10.0.0.6/mario";      //http://147.10.68.24:9140/mario
+const ESP_PIRATES_URL  = "http://10.0.0.6/pirates";    //http://147.10.68.24:9140/pirates
 
 /**
  * OpenWeatherMap API Variables
  */
-const APIKEY           = "d5fc87e05478be7b30ebf1e7105713e1";
-const MELBOURNE_ID     = "7839805";
-const WEATHER_URL      = "http://api.openweathermap.org/data/2.5/weather?id="+MELBOURNE_ID+"&APPID="+APIKEY;
+const APIKEY            = "d5fc87e05478be7b30ebf1e7105713e1";
+const MELBOURNE_ID      = "7839805";
+const WEATHER_URL       = "http://api.openweathermap.org/data/2.5/weather?id="+MELBOURNE_ID+"&APPID="+APIKEY;
+const WEATHER_HOUR      = "http://api.openweathermap.org/data/2.5/forecase/hourly?id="+MELBOURNE_ID+"&APPID="+APIKEY;
 
 /**
  * App middlewares
@@ -161,6 +162,26 @@ app.get("/api/data/getweatherdata",(req,res) => {
         else{
             res.contentType("application/json");
             res.send(body.main);
+        }
+    });
+});
+
+//Poll Weather data from openweatherapi
+app.get("/api/data/getweatherdata/hourly",(req,res) => {
+    //Make request to remote sensor
+    request({
+        url: WEATHER_HOUR,
+        method: 'GET',
+        json: true,
+    }, function (error, response, body) {
+        if (error) {
+            res.contentType("application/json");
+            res.send(response.body);
+        }
+        else{
+            console.log(body);
+            res.contentType("application/json");
+            res.send(body);
         }
     });
 });

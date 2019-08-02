@@ -7,6 +7,7 @@
 
 #include "music.h"
 #include "sonar.h"
+#include "moisture.h"
 
 //Constants
 #define WIFI_NAME       "Belong3D3DC4"
@@ -22,4 +23,5 @@ void handleRoot();
 void handleMario();
 void handlePirates();
 void handleNotFound();
+void handleMoisture();
 

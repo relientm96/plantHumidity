@@ -1,8 +1,9 @@
 //Site specific functions
 
-var ESPURL           = "http://147.10.68.24:9140/";
-var ESP_MARIO_URL    = "http://147.10.68.24:9140/mario";
-var ESP_PIRATES_URL  = "http://147.10.68.24:9140/pirates";
+var ESPURL              = "http://10.0.0.6/";          //http://147.10.68.24:9140/
+var ESP_MOISTURE        = "http://10.0.0.6/moisture";  
+var ESP_MARIO_URL       = "http://10.0.0.6//mario";    //http://147.10.68.24:9140/mario
+var ESP_PIRATES_URL     = "http://10.0.0.6/pirates";   //http://147.10.68.24:9140/pirates
 
 //Render random data when page finishes loading
 $( document ).ready(function() {
@@ -18,7 +19,7 @@ $( document ).ready(function() {
 
     $("#marioBtn").click(function(){
         $.ajax({
-            url: "http://18.139.115.251/remote/mario",
+            url: "http://localhost:45130/remote/mario", 
             type: 'POST',
             success: function (result) {
                 document.getElementById("playSongTextHolder").innerHTML = result;
@@ -31,7 +32,7 @@ $( document ).ready(function() {
 
     $("#piratesBtn").click(function(){
         $.ajax({
-            url: "http://18.139.115.251/remote/pirates",
+            url: "http://localhost:45130/remote/pirates",
             type: 'POST',
             success: function (result) {
                 document.getElementById("playSongTextHolder").innerHTML = result;
@@ -48,11 +49,19 @@ $( document ).ready(function() {
 });
 
 function getLiveData() {
-    let numb2 = Math.floor((Math.random()*6)) + 1;
+    
     var element_1 = document.getElementById("distanceTextHolder");
-
     var element_2 = document.getElementById("humidityTextHolder");
-    element_2.innerHTML = (parseInt(numb2)).toString() + " g/m3";
+
+    $.ajax({
+        url: ESP_MOISTURE,
+        success: function (result) {
+            element_2.innerHTML = result + " %";
+        },
+        error: function (){
+            element_2.innerHTML = "Cannot connect to sensor...";
+        }
+    })
 
     $.ajax({
         url: ESPURL,

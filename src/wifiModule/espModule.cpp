@@ -54,6 +54,7 @@ void espInit() {
     server.send(200, "text/plain", "" );
   });    
   server.onNotFound(handleNotFound); 
+  server.on("/moisture", HTTP_GET, handleMoisture);
 
   //Start Server
   server.begin();                           
@@ -99,6 +100,14 @@ void handleRoot() {
   server.sendHeader("Access-Control-Allow-Methods", "POST,GET,OPTIONS");
   server.sendHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   server.send(200, "text/plain", String(getDistance()));  
+}
+
+//Routes to handle requests to ESP8266 server
+void handleMoisture() {
+  server.sendHeader("Access-Control-Allow-Origin","*");
+  server.sendHeader("Access-Control-Allow-Methods", "POST,GET,OPTIONS");
+  server.sendHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  server.send(200, "text/plain", String(getMoisture()));  
 }
 
 void handleMario(){
