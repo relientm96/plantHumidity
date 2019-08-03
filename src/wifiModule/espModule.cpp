@@ -5,12 +5,18 @@ ESP8266WiFiMulti wifiMulti;
 // Create a webserver object that listens for HTTP request on port 80
 ESP8266WebServer server(80);    
 
+//Creating DHT Instance Object from Libray Class
+DHT dhtInstance(DHT_PIN,DHT11,1);
+
+/*
 //URLS to make HTTP requests to
 const char hostDistance[] = "http://5394abdf.ngrok.io/api/data";
 const char hostTemperature[] = "http://5394abdf.ngrok.io/api/data";
 const char hostHumidity[] = "http://5394abdf.ngrok.io/api/data";
 
+
 char sensorData[] = "{\"humidity\":{\"time\":\"3141\",\"data\":3.3},\"temperature\":{\"time\":\"313211\",\"data\":23}}";
+*/
 
 void espInit() {
 
@@ -54,7 +60,11 @@ void espInit() {
     server.send(200, "text/plain", "" );
   });    
   server.onNotFound(handleNotFound); 
+
+  //Data Polling Routes
   server.on("/moisture", HTTP_GET, handleMoisture);
+  server.on("/temperature", HTTP_GET, handleTemp);  
+  server.on("/humidity", HTTP_GET, handleHumidity);  
 
   //Start Server
   server.begin();                           
@@ -62,6 +72,7 @@ void espInit() {
   
 }
 
+/*
 //Make a request to the remote server
 void sendSensorData(char sensorData[]) {
   if (WiFi.status() == WL_CONNECTED) {
@@ -88,6 +99,7 @@ void sendSensorData(char sensorData[]) {
     http.end();
   }
 }
+*/
 
 void serverHandle(){
   // Listen for HTTP requests from clients
@@ -110,6 +122,32 @@ void handleMoisture() {
   server.send(200, "text/plain", String(getMoisture()));  
 }
 
+//Temperature Readings
+void handleTemp(){
+
+  //Reading Temperature in Celcius
+  float tempData = dhtInstance.readTemperature(false,false);
+  
+  server.sendHeader("Access-Control-Allow-Origin","*");
+  server.sendHeader("Access-Control-Allow-Methods", "POST,GET,OPTIONS");
+  server.sendHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  server.send(200, "text/plain", String(tempData));  
+}
+
+//Humidity Readings
+void handleHumidity(){
+
+  //Reading humidity
+  float humidData = dhtInstance.readHumidity(false);
+
+  server.sendHeader("Access-Control-Allow-Origin","*");
+  server.sendHeader("Access-Control-Allow-Methods", "POST,GET,OPTIONS");
+  server.sendHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  server.send(200, "text/plain", String(humidData));  
+}
+
+
+//Musical Functions
 void handleMario(){
   server.sendHeader("Access-Control-Allow-Origin","*");
   server.sendHeader("Access-Control-Allow-Methods", "POST,GET,OPTIONS");
