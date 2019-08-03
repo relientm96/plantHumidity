@@ -1,14 +1,35 @@
-//Site specific functions
+/*Main Javascript*/
 
-var ESPURL              = "http://10.0.0.6/";          //http://147.10.68.24:9140/
-var ESP_MOISTURE        = "http://10.0.0.6/moisture";  
-var ESP_MARIO_URL       = "http://10.0.0.6//mario";    //http://147.10.68.24:9140/mario
-var ESP_PIRATES_URL     = "http://10.0.0.6/pirates";   //http://147.10.68.24:9140/pirates
+//FLAG to change from local to public URLs
+const LOCAL_TEST = 1;
+//External modem IP address
+const MY_EXTERNAL_IP = "147.10.69.128";
+//Flag to toggle on/off data polling to sensor
+var readData = 1;
+
+//Define URLS based on if local environment or cloud environment
+
+//if testing locally
+if(LOCAL_TEST){
+    var IPToESP               = "10.0.0.6";
+    var BACKENDURL            = "localhost:45130";
+}
+//for cloud
+else {
+    var IPToESP               = "MY_EXTERNAL_IP"+":9170";
+    var BACKENDURL            = "pollpots.dynalias.com";
+}
+
+//Defined URLS for sensor polling to ESP8266
+var ESP_MOISTURE_URL        = "http://"+ IPToESP +"/moisture";  
+var ESP_TEMP_URL            = "http://"+ IPToESP +"/temperature";  
+var ESP_HUMID_URL           = "http://"+ IPToESP +"/humidity";  
+var ESP_DIST_URL            = "http://"+ IPToESP +"/";  
 
 //Render random data when page finishes loading
 $( document ).ready(function() {
 
-    generateData();
+    //generateData();
     $('.fixed-action-btn').floatingActionButton({
         hoverEnabled: false,
     });
@@ -19,7 +40,7 @@ $( document ).ready(function() {
 
     $("#marioBtn").click(function(){
         $.ajax({
-            url: "http://localhost:45130/remote/mario", 
+            url: "http://"+ BACKENDURL +"/remote/mario", 
             type: 'POST',
             success: function (result) {
                 document.getElementById("playSongTextHolder").innerHTML = result;
@@ -32,7 +53,7 @@ $( document ).ready(function() {
 
     $("#piratesBtn").click(function(){
         $.ajax({
-            url: "http://localhost:45130/remote/pirates",
+            url: "http://"+ BACKENDURL +"/remote/pirates",
             type: 'POST',
             success: function (result) {
                 document.getElementById("playSongTextHolder").innerHTML = result;
@@ -43,45 +64,19 @@ $( document ).ready(function() {
         });
     });
 
-    setInterval(getLiveData,     1000); 
+    $("#dataButtonTrigger").click(function(){
+        readData ^= 1;
+    });
+
+    $("#resetButton").click(function(){
+        resetPlots();
+    })
+    
+    //Set timer between polling evens to ESP8266
     setInterval(getDistanceData, 1000);
-    setInterval(pollMoisture,    250);
+    setInterval(pollMoisture,    500);
 
 });
-
-function getLiveData() {
-
-    var element_1 = document.getElementById("distanceTextHolder");
-    var element_2 = document.getElementById("humidityTextHolder");
-
-    $.ajax({
-        url: ESP_MOISTURE,
-        success: function (result) {
-            element_2.innerHTML = result + " %";
-        },
-        error: function (){
-            element_2.innerHTML = "Cannot connect to sensor...";
-        }
-    })
-
-    $.ajax({
-        url: ESPURL,
-        success: function (result) {
-            if( (parseInt(result, 10) > 80) ){
-                element_1.innerHTML = "I Don't See Anything Around...";
-            }  
-            else if((parseInt(result, 10) <= 7)){
-                element_1.innerHTML = "Someone is too close to me!";
-            }
-            else{
-                element_1.innerHTML = result + " cm";
-            }
-        },
-        error: function (){
-            element_1.innerHTML = "Cannot connect to sensor...";
-        }
-    });
-}
 
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {

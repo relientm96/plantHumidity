@@ -55,20 +55,46 @@
       </div>
 
     <div class="divider"></div>
+    
+    <br>
 
     <div id="liveDataSection" class="container">
+      <h2> Live Data </h2>
       <div class="section">
         <div class="card hoverable">
           <div class="card-content">
-            <h4> Live Data Tracker</h4>
-            <h6 id="isSensorOn"></h6>
-            <canvas id="distanceBar" style="max-height: 350px;"></canvas>
+
+            <div class="container">
+              <div class="section">
+                <h4> Live Greenhouse Data Tracking</h4>
+                <br>
+                <p>Status:</p>
+                <p id="moistureStatus"></p> 
+                <canvas id="moistureChart" style="max-height: 350px;"></canvas>      
+                <div style="display: inline-block">
+                  <button id="dataButtonTrigger" type="button" class="btn btn-primary waves-effect">Run/Pause</button>
+                  <button id="resetButton" type="button" class="btn btn-primary waves-effect">Reset</button>
+                </div>                
+              </div>
+            </div>
+
+            <div class="container">
+              <div class="section">
+                <h4> Live Distance Tracker</h4>
+                <br>
+                <p>Status:</p>
+                <h6 id="isSensorOn"></h6>
+                <canvas id="distanceBar" style="max-height: 350px;"></canvas>                
+              </div>
+            </div>
+
           </div>
-          </div>      
+        </div>      
       </div>
     </div>
 
-    <div id="readingSection" class="container" style="height:100vh;">
+    <!---
+    <div class="container" style="height:100vh;">
         <div class="section">
           <div class="card hoverable">
             <div class="card-content">
@@ -80,20 +106,7 @@
           </div> 
         </div>
     </div>
-  
-    <div class="divider"></div>
-
-    <div id="trackMoistureSection" class="container" style="height:100vh;">
-      <div class="section">
-        <div class="card hoverable">
-          <div class="card-content">
-              <h3> Live Moisture Data </h3>
-              <p id="moistureStatus"></p>
-              <canvas id="moistureChart" style="max-height: 350px;"></canvas>                      
-          </div>
-        </div> 
-      </div>
-    </div>
+    --->
 
     <div class="divider"></div>
 
@@ -103,6 +116,7 @@
           <div class="card-content">
             <h3> Live Distance Tracker </h3>
             <h5>Nearest Object to Greenhouse is</h5>
+            <p>Status:</p>
             <h6 id="distanceTextHolder"></h6>
             <h5>Away</h5>
           </div>
@@ -111,7 +125,8 @@
             <div class="card-content">
               <h3> Live Moisture </h3>
               <h5>Current Moisture is</h5>
-              <h5 id="humidityTextHolder"></h5>
+              <p>Status:</p>
+              <h5 id="moistureTextHolder"></h5>
             </div>
         </div> 
       </div>
@@ -124,6 +139,7 @@
           <div class="card hoverable">
             <div class="card-content">
               <h3> Play a Lullaby for them</h3>
+              <p>Status:</p>
               <p id="playSongTextHolder"></p>
               <div class="btnSongGroup">
                   <button id="marioBtn" type="button" class="btn btn-primary">Play Mario</button>
@@ -136,7 +152,9 @@
 
     <!-- Own Javascript Imports -->
     <script src="js/livePlot.js"></script>
+    <!---
     <script src="js/lineChart.js"></script>
+    --->
     <script src="js/barDistance.js"></script>
   </body>
 
