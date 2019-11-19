@@ -2,3 +2,4 @@
 *.pem
 *.exe
 *.sh
+/src/server/.vscode
