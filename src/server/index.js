@@ -19,24 +19,25 @@ const PORT = process.env.PORT || 45130
 /**
  * CouchDB Variables
  */
-const   nano          = require("nano")("http://SinsOnTwitter:group68@localhost:5984")
-const   humidSensorDB = nano.db.use("humidity") 
-const   tempSensorDB  = nano.db.use("temperature")
+const nano = require("nano")("http://SinsOnTwitter:group68@localhost:5984")
+const humidSensorDB = nano.db.use("humidity")
+const tempSensorDB = nano.db.use("temperature")
 
 /**
  * Sensor URL Endpoints
  */
-const ESPURL           = "http://10.0.0.6/";           //http://147.10.68.24:9140
-const ESP_MARIO_URL    = "http://10.0.0.6/mario";      //http://147.10.68.24:9140/mario
-const ESP_PIRATES_URL  = "http://10.0.0.6/pirates";    //http://147.10.68.24:9140/pirates
+const MY_EXTERNAL_IP = "http://matthewhome.dnsalias.org:9140"; // NodeMCU linked to port 9140
+const ESPURL = MY_EXTERNAL_IP; //http://147.10.68.24:9140
+const ESP_MARIO_URL = MY_EXTERNAL_IP + "/mario"; //http://147.10.68.24:9140/mario
+const ESP_PIRATES_URL = MY_EXTERNAL_IP + "/pirates"; //http://147.10.68.24:9140/pirates
 
 /**
  * OpenWeatherMap API Variables
  */
-const APIKEY            = "d5fc87e05478be7b30ebf1e7105713e1";
-const MELBOURNE_ID      = "7839805";
-const WEATHER_URL       = "http://api.openweathermap.org/data/2.5/weather?id="+MELBOURNE_ID+"&APPID="+APIKEY;
-const WEATHER_HOUR      = "http://api.openweathermap.org/data/2.5/forecase/hourly?id="+MELBOURNE_ID+"&APPID="+APIKEY;
+const APIKEY = "d5fc87e05478be7b30ebf1e7105713e1";
+const MELBOURNE_ID = "7839805";
+const WEATHER_URL = "http://api.openweathermap.org/data/2.5/weather?id=" + MELBOURNE_ID + "&APPID=" + APIKEY;
+const WEATHER_HOUR = "http://api.openweathermap.org/data/2.5/forecase/hourly?id=" + MELBOURNE_ID + "&APPID=" + APIKEY;
 
 /**
  * App middlewares
@@ -54,7 +55,7 @@ app.use(morgan('combined'));
 /**
  * Serve root webpage
  */
-app.get('/',(request,response) => {
+app.get('/', (request, response) => {
     response.contentType("text/html");
     response.sendFile('resources/index.html');
 });
@@ -62,7 +63,7 @@ app.get('/',(request,response) => {
 /**
  * Receives data from sensor and update CouchDB database
  */
-app.post('/api/data',function(request,response){
+app.post('/api/data', function(request, response) {
     var humimdData = request.body.humidity.data;
     var tempData = request.body.temperature.data;
     console.log("Humidity data: " + humimdData);
@@ -82,44 +83,43 @@ app.post('/api/data',function(request,response){
 /**
  * FrontEnd call to get humidity data from CouchDB
  */
-app.get('/api/data/humidity',(request,response) => {
-    humidSensorDB.view("humidView","sortTime")
-    .then((body) => {
-        response.send(body.rows);
-    })
-    .catch((error) => {
-        console.log("Promise rejected! Error was: " + error);
-    });
+app.get('/api/data/humidity', (request, response) => {
+    humidSensorDB.view("humidView", "sortTime")
+        .then((body) => {
+            response.send(body.rows);
+        })
+        .catch((error) => {
+            console.log("Promise rejected! Error was: " + error);
+        });
 });
 
 /**
  * FrontEnd call to get temperature data from CouchDB
  */
-app.get('/api/data/temperature',(request,response) => {
-    tempSensorDB.view("tempView","sortTime")
-    .then((body) => {
-        response.send(body.rows);
-    })
-    .catch((error) => {
-        console.log("Promise rejected! Error was: " + error);
-    });
+app.get('/api/data/temperature', (request, response) => {
+    tempSensorDB.view("tempView", "sortTime")
+        .then((body) => {
+            response.send(body.rows);
+        })
+        .catch((error) => {
+            console.log("Promise rejected! Error was: " + error);
+        });
 });
 
 /**
  * FrontEnd call that re-routes request to sensor to play Mario
  */
-app.post('/remote/mario',(req,res) =>{
+app.post('/remote/mario', (req, res) => {
 
     //Make request to remote sensor
     request({
         url: ESP_MARIO_URL,
         method: 'POST',
-    }, function(error, response, body){
+    }, function(error, response, body) {
         if (error) {
             res.contentType("text/plain");
             res.send("Could not play mario...");
-        }
-        else {
+        } else {
             res.contentType("text/plain");
             res.send(response.body);
         }
@@ -130,17 +130,16 @@ app.post('/remote/mario',(req,res) =>{
 /**
  * FrontEnd call that re-routes request to sensor to play Pirates of the Carribean
  */
-app.post('/remote/pirates',(req,res) =>{
+app.post('/remote/pirates', (req, res) => {
     //Make request to remote sensor
     request({
         url: ESP_PIRATES_URL,
         method: 'POST',
-    }, function (error, response, body) {
+    }, function(error, response, body) {
         if (error) {
             res.contentType("text/plain");
             res.send("Could not play pirates...");
-        }
-        else{
+        } else {
             res.contentType("text/plain");
             res.send(response.body);
         }
@@ -148,18 +147,17 @@ app.post('/remote/pirates',(req,res) =>{
 });
 
 //Poll Weather data from openweatherapi
-app.get("/api/data/getweatherdata",(req,res) => {
+app.get("/api/data/getweatherdata", (req, res) => {
     //Make request to remote sensor
     request({
         url: WEATHER_URL,
         method: 'GET',
         json: true,
-    }, function (error, response, body) {
+    }, function(error, response, body) {
         if (error) {
             res.contentType("application/json");
             res.send(response.body);
-        }
-        else{
+        } else {
             res.contentType("application/json");
             res.send(body.main);
         }
@@ -167,18 +165,17 @@ app.get("/api/data/getweatherdata",(req,res) => {
 });
 
 //Poll Weather data from openweatherapi
-app.get("/api/data/getweatherdata/hourly",(req,res) => {
+app.get("/api/data/getweatherdata/hourly", (req, res) => {
     //Make request to remote sensor
     request({
         url: WEATHER_HOUR,
         method: 'GET',
         json: true,
-    }, function (error, response, body) {
+    }, function(error, response, body) {
         if (error) {
             res.contentType("application/json");
             res.send(response.body);
-        }
-        else{
+        } else {
             console.log(body);
             res.contentType("application/json");
             res.send(body);
