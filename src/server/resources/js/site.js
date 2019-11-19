@@ -1,7 +1,7 @@
 /*Main Javascript*/
 
 //FLAG to change from local to public URLs
-const LOCAL_TEST = 1;
+const LOCAL_TEST = 0;
 //External modem IP address
 const MY_EXTERNAL_IP = "matthewhome.dnsalias.org" //"123.208.255.150"; // "147.10.69.128"; 
 
