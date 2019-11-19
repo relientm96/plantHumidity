@@ -3,7 +3,7 @@
 //FLAG to change from local to public URLs
 const LOCAL_TEST = 0;
 //External modem IP address
-const MY_EXTERNAL_IP = "matthewhome.dnsalias.org" //"123.208.255.150"; // "147.10.69.128"; 
+const MY_EXTERNAL_IP = "matthewhome.dnsalias.org";
 
 //Flag to toggle on/off data polling to sensor
 var readData = 1;

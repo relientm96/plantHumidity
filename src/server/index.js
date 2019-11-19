@@ -27,9 +27,9 @@ const tempSensorDB = nano.db.use("temperature")
  * Sensor URL Endpoints
  */
 const MY_EXTERNAL_IP = "http://matthewhome.dnsalias.org:9140"; // NodeMCU linked to port 9140
-const ESPURL = MY_EXTERNAL_IP; //http://147.10.68.24:9140
-const ESP_MARIO_URL = MY_EXTERNAL_IP + "/mario"; //http://147.10.68.24:9140/mario
-const ESP_PIRATES_URL = MY_EXTERNAL_IP + "/pirates"; //http://147.10.68.24:9140/pirates
+const ESPURL = MY_EXTERNAL_IP;
+const ESP_MARIO_URL = MY_EXTERNAL_IP + "/mario";
+const ESP_PIRATES_URL = MY_EXTERNAL_IP + "/pirates";
 
 /**
  * OpenWeatherMap API Variables

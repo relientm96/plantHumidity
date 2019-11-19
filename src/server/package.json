@@ -1,33 +1,34 @@
 {
-  "name": "planthumidity",
-  "version": "1.0.0",
-  "description": "Greenhouse humidity and temperature web application.",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js",
-    "dev": "nodemon index.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/relientm96/plantHumidity.git"
-  },
-  "author": "Matthew Yong",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/relientm96/plantHumidity/issues"
-  },
-  "homepage": "https://github.com/relientm96/plantHumidity#readme",
-  "dependencies": {
-    "body-parser": "^1.19.0",
-    "chart.js": "^2.8.0",
-    "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "morgan": "^1.9.1",
-    "nano": "^8.1.0",
-    "request": "^2.88.0"
-  },
-  "devDependencies": {
-    "nodemon": "^1.19.1"
-  }
+    "name": "planthumidity",
+    "version": "1.0.0",
+    "description": "Greenhouse humidity and temperature web application.",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node index.js",
+        "dev": "nodemon index.js",
+        "productionStart": "node src/server index.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/relientm96/plantHumidity.git"
+    },
+    "author": "Matthew Yong",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/relientm96/plantHumidity/issues"
+    },
+    "homepage": "https://github.com/relientm96/plantHumidity#readme",
+    "dependencies": {
+        "body-parser": "^1.19.0",
+        "chart.js": "^2.8.0",
+        "cors": "^2.8.5",
+        "express": "^4.17.1",
+        "morgan": "^1.9.1",
+        "nano": "^8.1.0",
+        "request": "^2.88.0"
+    },
+    "devDependencies": {
+        "nodemon": "^1.19.1"
+    }
 }
